@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Kelas;
 use App\Models\User;
+use App\Models\Kelas;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
