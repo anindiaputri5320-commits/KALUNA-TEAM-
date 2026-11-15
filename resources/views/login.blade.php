@@ -97,7 +97,7 @@
         <!-- Footer Card -->
         <div class="mt-8 text-center border-t border-pink-50 pt-5 relative z-10">
             <p class="text-[11px] text-gray-400">
-                Sistem Kas Digital — Dibuat oleh <span class="font-bold text-rose-500">Anindia & Dita</span>
+                KALUNA kasdigital<span class="font-bold text-rose-500"></span>
             </p>
         </div>
 

@@ -45,29 +45,72 @@
                 <p class="text-rose-100 text-xs sm:text-sm max-w-md">Pantau keteraturan dan riwayat pembayaran iuran kas harian atau mingguanmu di sini.</p>
             </div>
             <div class="bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-2xl text-center min-w-[200px] z-10">
-                <span class="text-xs text-rose-100 uppercase tracking-wider font-semibold">Status Minggu Ini</span>
-                <h3 class="text-lg font-bold text-white mt-1">✓ LUNAS</h3>
+                <span class="text-xs text-rose-100 uppercase tracking-wider font-semibold">Status Kas</span>
+                <h3 class="text-lg font-bold text-white mt-1">✨ AKTIF</h3>
             </div>
         </div>
 
         <!-- Cards Statistik -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Total Kas Kelas -->
             <div class="bg-white p-6 rounded-3xl shadow-sm border border-rose-100">
                 <p class="text-xs font-bold text-gray-400 uppercase">Total Kas Terkumpul (Kelas)</p>
-                <h3 class="text-3xl font-black text-rose-500 mt-2">Rp 0</h3>
+                <h3 class="text-3xl font-black text-rose-500 mt-2">
+                    Rp {{ number_format($totalKasKelas ?? 0, 0, ',', '.') }}
+                </h3>
                 <p class="text-xs text-gray-400 mt-2">Transparan untuk seluruh warga kelas</p>
             </div>
+
+            <!-- Total Setoran Siswa Yang Login -->
             <div class="bg-white p-6 rounded-3xl shadow-sm border border-rose-100">
                 <p class="text-xs font-bold text-gray-400 uppercase">Total Setoran Kamu</p>
-                <h3 class="text-3xl font-black text-emerald-500 mt-2">Rp 0</h3>
+                <h3 class="text-3xl font-black text-emerald-500 mt-2">
+                    Rp {{ number_format($totalSetoranKamu ?? 0, 0, ',', '.') }}
+                </h3>
                 <p class="text-xs text-gray-400 mt-2">Terima kasih sudah tertib membayar kas! ✨</p>
+            </div>
+        </div>
+
+        <!-- Tabel Riwayat Setoran Pribadi Siswa -->
+        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-pink-100 shadow-sm space-y-4">
+            <h3 class="text-sm font-extrabold text-slate-800 flex items-center gap-2">
+                <span>📑</span> Riwayat Pembayaran Setoran Kamu
+            </h3>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-pink-100 text-[11px] uppercase tracking-wider text-slate-400 font-bold">
+                            <th class="py-3 px-3">No</th>
+                            <th class="py-3 px-3">Tanggal</th>
+                            <th class="py-3 px-3">Keterangan / Iuran</th>
+                            <th class="py-3 px-3">Periode</th>
+                            <th class="py-3 px-3">Jumlah Bayar</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-pink-50 text-xs font-medium text-slate-700">
+                        @forelse($riwayatSetoran ?? [] as $index => $item)
+                            <tr class="hover:bg-rose-50/30 transition-colors">
+                                <td class="py-3 px-3 text-slate-400 font-bold">{{ $index + 1 }}</td>
+                                <td class="py-3 px-3 text-slate-500">{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</td>
+                                <td class="py-3 px-3 font-bold text-slate-800">{{ $item->nama_iuran }}</td>
+                                <td class="py-3 px-3 text-slate-500">{{ $item->periode }}</td>
+                                <td class="py-3 px-3 font-black text-emerald-600">+ Rp {{ number_format($item->jumlah, 0, ',', '.') }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="py-8 text-center text-slate-400 font-medium">Belum ada catatan setoran kas atas nama kamu.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
         </div>
 
     </main>
 
-    <footer class="text-center py-6 text-xs text-gray-400 border-t border-rose-100 bg-white">
-        KALUNA Kas Digital — Dibuat dengan ❤️ oleh Anindia & Dita
+    <footer class="text-center py-6 text-xs text-gray-400 border-t border-rose-100 bg-white mt-auto">
+        KALUNA Kas Digital 🌸
     </footer>
 
 </body>

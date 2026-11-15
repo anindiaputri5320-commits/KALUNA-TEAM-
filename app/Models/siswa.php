@@ -9,11 +9,7 @@ class Siswa extends Model
 {
     use HasFactory;
 
-    protected $table = 'siswa';
-    protected $fillable = ['nisd', 'nama_siswa', 'kelas_id'];
-
-    public function kelas()
-    {
-        return $this->belongsTo(Kelas::class, 'kelas_id');
-    }
+    protected $table = 'siswa'; // 👈 Tambahkan baris ini agar sesuai dengan nama tabel di database XAMPP kamu!
+    
+    protected $fillable = ['nis', 'nama', 'kelas', 'status']; // Sesuaikan dengan kolom tabelmu
 }
